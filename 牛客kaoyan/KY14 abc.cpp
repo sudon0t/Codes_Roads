@@ -1,6 +1,6 @@
  /**
  * @brief: KY14 abc
- * @link: 
+ * @link: https://www.nowcoder.com/practice/912b15e237ef44148e44018d7b8750b6?tpId=40&tqId=21346&rp=1&difficulty=1&judgeStatus=&tags=/question-ranking
  * @date: 2026-01-13 00:10:13
  */
 
