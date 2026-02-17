@@ -10,32 +10,26 @@
 #include <vector>
 using namespace std;
 
-vector<int> dp;
-
-int getMax(int a, int b, int c){
-    return c>(a>b?a:b)?c:(a>b?a:b);
-}
-
-int main(){
+int main() {
     int n;
     cin >> n;
-    dp.push_back(0);
-    dp.push_back(0);
-    dp.push_back(1);
-    dp.push_back(2);
-    dp.push_back(4);
-    for(int i=5; i<=n; i++){
-        int max = 1;
-        for(int j=1; j<i; j++){
-            int num1 = j * dp[i-j];
-            int num2 = j * (i-j);
-            max = getMax(num1, num2, max);
-            // cout << "cal:" << i << " " << "num1=" << j << "*" << dp[i-j] << "=" << num1;
-            // cout << " num2=" << j << "*" << i-j << "=" << num2 << " " << "max=" << max << endl;
-        }
-        dp.push_back(max);
+    // dp[i][j]：把i拆成最大数不超过j的方案数
+    vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
+    for (int j = 0; j <= n; ++j) {
+        dp[0][j] = 1;
     }
-    cout << dp[n];
-    
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            if (j > i) {
+                dp[i][j] = dp[i][i];
+            } else if (j == i) {
+                dp[i][j] = 1 + dp[i][j-1];
+            } else {
+                dp[i][j] = dp[i-j][j] + dp[i][j-1];
+            }
+        }
+    }
+    cout << dp[n][n] - 1 << endl;
+
     return 0;
 }
