@@ -8,37 +8,20 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 using namespace std;
 
-vector<unsigned short> nums;
-vector<unsigned short> choice;
-vector<vector<unsigned short> > ans;
-
-void gen(unsigned short n, unsigned short l, unsigned short s){
-    if(s>40 || l>n){
-        return;
-    }
-    if(s==40){
-        ans.push_back(choice);
-        return;
-    }
-    s += nums[l];
-    choice.push_back(l);
-    gen(n, l+1, s);
-    s -= nums[l];
-    choice.pop_back();
-    gen(n, l+1, s);
-}
-
 int main(){
-    unsigned short n;
-    cin >> n;
-    for(unsigned short i=0; i<n; i++){
-        unsigned short temp;
-        cin >> temp;
-        nums.push_back(temp);
+    string str;
+    while(cin >> str){
+        int len = str.length();
+        multiset<char> ms;
+        for(int i=0; i<len; i++){
+            ms.insert(str[i]);
+        }
+        for(auto it = ms.begin(); it != ms.end(); it++){
+            cout << *it;
+        }
     }
-    gen(n, 0, 0);
-    cout << ans.size() << endl;
     return 0;
 }
