@@ -24,6 +24,7 @@ int main(){
     int n, m;
     cin >> n >> m;
     vector<vector<bool> > v(n+1, vector<bool>(m+1, false));
+    vector<vector<bool> > inQueue(n+1, vector<bool>(m+1, false));
     queue<Node> q;
     for(int i=1; i<=n; i++){
         for(int j=1; j<=m; j++){
@@ -36,7 +37,7 @@ int main(){
     }
     Node newnode = Node(1, 1);
     q.push(newnode);
-    v[1][1] = false;
+    inQueue[1][1] = true;
     int ans = 0;
     while(!q.empty()){
         int num = q.size();
@@ -49,12 +50,14 @@ int main(){
             q.pop();
             if(top.x-1>=1){
                 if(v[top.x-1][top.y]){
-                    v[top.x-1][top.y] = false;
-                    newnode = Node(top.x-1, top.y);
-                    q.push(newnode);
+                    if(!inQueue[top.x-1][top.y]){
+                        inQueue[top.x-1][top.y] = true;
+                        newnode = Node(top.x-1, top.y);
+                        q.push(newnode);
+                    }
                     if(top.x-2>=1){
-                        if(v[top.x-2][top.y]){
-                            v[top.x-2][top.y] = false;
+                        if(v[top.x-2][top.y] && !inQueue[top.x-2][top.y]){
+                            inQueue[top.x-2][top.y] = true;
                             newnode = Node(top.x-2, top.y);
                             q.push(newnode);
                         }
@@ -63,12 +66,14 @@ int main(){
             }
             if(top.y-1>=1){
                 if(v[top.x][top.y-1]){
-                    v[top.x][top.y-1] = false;
-                    newnode = Node(top.x, top.y-1);
-                    q.push(newnode);
+                    if(!inQueue[top.x][top.y-1]){
+                        inQueue[top.x][top.y-1] = true;
+                        newnode = Node(top.x, top.y-1);
+                        q.push(newnode);
+                    }
                     if(top.y-2>=1){
-                        if(v[top.x][top.y-2]){
-                            v[top.x][top.y-2] = false;
+                        if(v[top.x][top.y-2] && !inQueue[top.x][top.y-2]){
+                            inQueue[top.x][top.y-2] = true;
                             newnode = Node(top.x, top.y-2);
                             q.push(newnode);
                         }
@@ -77,12 +82,14 @@ int main(){
             }
             if(top.x+1<=n){
                 if(v[top.x+1][top.y]){
-                    v[top.x+1][top.y] = false;
-                    newnode = Node(top.x+1, top.y);
-                    q.push(newnode);
+                    if(!inQueue[top.x+1][top.y]){
+                        inQueue[top.x+1][top.y] = true;
+                        newnode = Node(top.x+1, top.y);
+                        q.push(newnode);
+                    }
                     if(top.x+2<=n){
-                        if(v[top.x+2][top.y]){
-                            v[top.x+2][top.y] = false;
+                        if(v[top.x+2][top.y] && !inQueue[top.x+2][top.y] ){
+                            inQueue[top.x+2][top.y] = true;
                             newnode = Node(top.x+2, top.y);
                             q.push(newnode);
                         }
@@ -91,12 +98,14 @@ int main(){
             }
             if(top.y+1<=m){
                 if(v[top.x][top.y+1]){
-                    v[top.x][top.y+1] = false;
-                    newnode = Node(top.x, top.y+1);
-                    q.push(newnode);
+                    if(!inQueue[top.x][top.y+1]){
+                        inQueue[top.x][top.y+1] = true;
+                        newnode = Node(top.x, top.y+1);
+                        q.push(newnode);
+                    }
                     if(top.y+2<=m){
-                        if(v[top.x][top.y+2]){
-                            v[top.x][top.y+2] = false;
+                        if(v[top.x][top.y+2] && !inQueue[top.x][top.y+2]){
+                            inQueue[top.x][top.y+2] = true;
                             newnode = Node(top.x, top.y+2);
                             q.push(newnode);
                         }
